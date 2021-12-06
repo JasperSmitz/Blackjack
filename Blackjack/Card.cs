@@ -6,9 +6,6 @@ namespace Blackjack
 {
     class Card
     {
-        public static string[] suits = { "Clubs", "Hearts", "Spades", "Diamonds" };
-        public static string[] ranks = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
-
         public string suit;
         public string rank;
 

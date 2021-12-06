@@ -6,17 +6,27 @@ namespace Blackjack
 {
     class Player
     {
-        public static List<Card> hand = new List<Card>();
-        public int startingHand = 2;
+        public string name;
+        protected List<Card> hand = new List<Card>();
 
-        public Player()
+        public Player(string _name)
         {
+            this.name = _name;
             hand = new List<Card>();
         }
 
-        public static void Hit()
+        public void Hit()
         {
-            Dealer.DealCardToPlayer();
+            hand.Add(Blackjack.DealCardToPlayer());
+        }
+
+        // puur gemaakt om in de console aan te kunnen tonen dat er correct gedealt wordt
+        public static void ShowHand(Player player)
+        {
+            foreach (Card card in player.hand)
+            {
+                Console.WriteLine(card.Name());
+            }
         }
     }
 }

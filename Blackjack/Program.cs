@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
 
 namespace Blackjack
 {
@@ -6,44 +9,36 @@ namespace Blackjack
     {
         static void Main(string[] args)
         {
-            Deck playingDeck = new Deck();
-            Player player = new Player();
-            Dealer dealer = new Dealer();
-            Deck.CreateDeck();
-            Console.WriteLine("Created deck:");
-            foreach (Card card in Deck.deck)
+            int playerAmount;
+            int playerStartingHand;
+            Table table = new Table();
+
+            Table.GenerateCards();
+            Table.Shuffle();
+
+            Console.WriteLine("How many players?");
+            playerAmount = Int32.Parse(Console.ReadLine());
+
+            for (int i = 0; i < playerAmount; i++)
             {
-                int value = card.Value();
-                Console.WriteLine(card.Name() + " | Value = " + value.ToString());
+                Table.AddPlayer();
             }
-            Console.WriteLine();
-            Deck.ShuffleDeck();
-            Console.WriteLine("Shuffled deck:");
-            foreach (Card card in Deck.deck)
+
+            Console.WriteLine("How many cards for each player?");
+            playerStartingHand = Int32.Parse(Console.ReadLine());
+
+            foreach (Player player in Table.players)
             {
-                int value = card.Value();
-                Console.WriteLine(card.Name() + " | Value = " + value.ToString());
+                for (int i = 0; i < playerStartingHand; i++)
+                {
+                    player.Hit();
+                }
             }
-            Console.WriteLine("");
-            Console.WriteLine();
-            Dealer.DealCardToPlayer();
-            Dealer.DealCardToPlayer();
-            Dealer.DealCardToPlayer();
-            Dealer.DealCardToPlayer();
-            Dealer.DealCardToPlayer();
-            Console.WriteLine("Player hand:");
-            foreach (Card card in Player.hand)
+
+            foreach (Player p in Table.players)
             {
-                int value = card.Value();
-                Console.WriteLine(card.Name() + " | Value = " + value.ToString());
-            }
-            Console.WriteLine("");
-            Console.WriteLine();
-            Console.WriteLine("Leftover deck:");
-            foreach (Card card in Deck.deck)
-            {
-                int value = card.Value();
-                Console.WriteLine(card.Name() + " | Value = " + value.ToString());
+                Console.WriteLine(p.name);
+                Player.ShowHand(p);
             }
         }
     }
